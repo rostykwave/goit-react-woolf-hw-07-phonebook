@@ -1,12 +1,18 @@
 import { DeleteBtn, Item, List } from './ContactList.styled';
 import { useSelector, useDispatch } from 'react-redux';
-import { contactsOperations } from 'redux/contacts';
-import { getVisibleContacts } from 'redux/contacts/contacts-selectors';
+// import { contactsOperations } from 'redux/contacts';
+import { getContactsThunk } from '../../store/contacts/thunks';
+import {
+  selectAllContacts,
+  // selectFilterValueContacts,
+  // selectSortedContacts,
+} from '../../store/contacts/selectors';
+// import { getVisibleContacts } from 'redux/contacts/contacts-selectors';
 
 export const ContactList = () => {
-  const contacts = useSelector(getVisibleContacts);
+  const contacts = useSelector(selectAllContacts);
   const dispatch = useDispatch();
-  const onDeleteContact = id => dispatch(contactsOperations.deleteContact(id));
+  const onDeleteContact = id => dispatch(getContactsThunk());
 
   return (
     <List>

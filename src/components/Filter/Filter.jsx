@@ -1,12 +1,18 @@
 import { FilterField, FilterInput, FilterLabel } from './Filter.styled';
-import { getFilter } from 'redux/contacts/contacts-selectors';
+// import { getFilter } from 'redux/contacts/contacts-selectors';
 import { useSelector, useDispatch } from 'react-redux';
-import { contactsActions } from 'redux/contacts';
+// import { contactsActions } from 'redux/contacts';
+import { getContactsThunk } from '../../store/contacts/thunks';
+import {
+  // selectAllContacts,
+  selectFilterValueContacts,
+  // selectSortedContacts,
+} from '../../store/contacts/selectors';
 
 export const Filter = () => {
-  const value = useSelector(getFilter);
+  const value = useSelector(selectFilterValueContacts);
   const dispatch = useDispatch();
-  const onChange = e => dispatch(contactsActions.changeFilter(e.target.value));
+  const onChange = e => dispatch(getContactsThunk());
 
   return (
     <FilterField>

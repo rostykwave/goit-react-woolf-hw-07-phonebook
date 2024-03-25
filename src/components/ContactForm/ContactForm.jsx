@@ -9,7 +9,8 @@ import {
 } from './ContactForm.styled';
 import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
-import { contactsOperations } from 'redux/contacts';
+// import { contactsOperations } from 'redux/contacts';
+import { getContactsThunk } from '../../store/contacts/thunks';
 
 const FormError = ({ name }) => {
   return (
@@ -35,7 +36,7 @@ export const ContactForm = () => {
   const dispatch = useDispatch();
 
   const handleSubmit = (values, { resetForm }) => {
-    dispatch(contactsOperations.addContact(values));
+    dispatch(getContactsThunk());
     resetForm();
   };
 
