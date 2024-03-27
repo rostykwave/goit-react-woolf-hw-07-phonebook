@@ -19,8 +19,8 @@ export const App = () => {
       <h1>PhoneBook</h1>
       <ContactForm />
       <h1>Contacts</h1>
-      {/* <Filter /> */}
-      {/* <ContactList /> */}
+      <Filter />
+      <ContactList />
     </Container>
   );
 };

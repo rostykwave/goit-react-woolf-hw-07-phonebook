@@ -1,30 +1,29 @@
 import axios from 'axios';
 
-// axios.defaults.baseURL =
-// const baseURL = 'https://api.escuelajs.co/api/v1'
+const baseURL = 'https://6601c1c19d7276a75552196a.mockapi.io/api/v1/';
 
 const instanceContacts = axios.create({
-  baseURL: 'https://6601c1c19d7276a75552196a.mockapi.io/api/v1/contacts',
+  baseURL
 });
 
-export const getAllContactsApi = async (offset, limit) => {
+export const getAllContactsApi = async () => {
   const { data } = await instanceContacts(
-    `contacts?offset=${offset}&limit=${limit}`
+    `contacts`
   );
   return data;
 };
 
 export const getSearchContactsApi = async query => {
-  const { data } = await instanceContacts(`contacts/?title=${query}`);
+  const { data } = await instanceContacts(`contacts/?name=${query}`);
   return data;
 };
 
-export const getSingleContactuctApi = async id => {
+export const getSingleContactApi = async id => {
   const { data } = await instanceContacts(`contacts/${id}`);
   return data;
 };
 
-export const deleteContactuctApi = async id => {
+export const deleteContactApi = async id => {
   // const { data } = await instanceContacts(`contacts/${id}`)
   const { data } = await instanceContacts.delete('contacts', {
     params: { id },

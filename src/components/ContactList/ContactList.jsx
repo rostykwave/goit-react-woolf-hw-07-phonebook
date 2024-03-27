@@ -16,7 +16,7 @@ export const ContactList = () => {
 
   return (
     <List>
-      {contacts.map(({ id, name, phone }) => (
+      {contacts && contacts.map(({ id, name, phone }) => (
         <Item key={id}>
           <span>
             {name}: {phone}

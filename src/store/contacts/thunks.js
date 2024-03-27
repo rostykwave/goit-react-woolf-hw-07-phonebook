@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getAllContactsApi, addContactApi } from '../../api/contacts';
+import { getAllContactsApi, addContactApi, getSearchContactsApi } from '../../api/contacts';
 
-export const getContactsThunk = createAsyncThunk('getAll/contacts', () =>
-  getAllContactsApi(0, 10)
+export const getContactsThunk = createAsyncThunk('contacts/getAll', () =>
+  getAllContactsApi()
 );
 
 export const getSingleContactsThunk = createAsyncThunk(
@@ -10,13 +10,17 @@ export const getSingleContactsThunk = createAsyncThunk(
   () => getAllContactsApi()
 );
 
-export const addContact = createAsyncThunk('contacts/addContact', contact => {
+export const addContactThunk = createAsyncThunk('contacts/addContact', contact => {
   addContactApi(contact);
 });
 
+export const filterContactsThunk = createAsyncThunk('contacts/filterContacts', query => {
+  getSearchContactsApi(query);
+});
+
 const handleFulfilledContacts = (state, { payload }) => {
-  state.contacts = payload;
-  state.isLoading = false;
+  state.contacts.items = payload;
+  state.contacts.isLoading = false;
 };
 
 const handleFulfilledSingleContact = (state, { payload }) => {

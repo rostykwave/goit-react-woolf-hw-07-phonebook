@@ -10,7 +10,7 @@ import {
 import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
 // import { contactsOperations } from 'redux/contacts';
-import { getContactsThunk } from '../../store/contacts/thunks';
+import { addContactThunk } from '../../store/contacts/thunks';
 
 const FormError = ({ name }) => {
   return (
@@ -36,7 +36,7 @@ export const ContactForm = () => {
   const dispatch = useDispatch();
 
   const handleSubmit = (values, { resetForm }) => {
-    dispatch(getContactsThunk());
+    dispatch(addContactThunk(values));
     resetForm();
   };
 

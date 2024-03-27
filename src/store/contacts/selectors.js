@@ -1,10 +1,12 @@
 // import { createSelector } from '@reduxjs/toolkit';
 
-export const selectAllContacts = store => store.contacts;
-export const selectFilterValueContacts = store => store.contacts.filterValue;
+export const selectAllContacts = store => {
+  return store.contacts.contacts.items
+};
+export const selectFilterValueContacts = store => store.filter;
 
 export const selectSortedContacts = store => {
-  return store.contacts.contacts?.toSorted((a, b) => {
+  return store.contacts.contacts?.items?.toSorted((a, b) => {
     console.log('sorting...');
     return a.price - b.price;
   });
