@@ -18,9 +18,7 @@ export const StyledForm = styled(Form)`
 
 export const FormField = styled.label`
   position: relative;
-  :not(:last-child) {
-    margin-bottom: 28px;
-  }
+  margin-bottom: 28px;
 `;
 
 export const FormLabel = styled.span`
@@ -41,7 +39,6 @@ export const SubmitBtn = styled.button`
   cursor: pointer;
   outline: none;
 
-  margin-top: 20px;
   display: block;
 
   max-width: 100px;
