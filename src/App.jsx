@@ -2,7 +2,6 @@ import { ContactForm } from './components/ContactForm';
 import { ContactList } from './components/ContactList';
 import { Container } from './components/Container';
 import { Filter } from './components/Filter';
-// import { contactsOperations } from 'redux/contacts';
 import { getContactsThunk } from './store/contacts/thunks';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';

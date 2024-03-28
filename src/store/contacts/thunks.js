@@ -1,17 +1,17 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getAllContactsApi, addContactApi, getSearchContactsApi } from '../../api/contacts';
+import { getAllContactsApi, addContactApi, deleteContactApi, getSearchContactsApi } from '../../api/contacts';
+import { changeFilter } from './actions';
 
 export const getContactsThunk = createAsyncThunk('contacts/getAll', () =>
   getAllContactsApi()
 );
 
-export const getSingleContactsThunk = createAsyncThunk(
-  'contacts/getSingle',
-  () => getAllContactsApi()
-);
-
 export const addContactThunk = createAsyncThunk('contacts/addContact', contact => {
   addContactApi(contact);
+});
+
+export const deleteContactThunk = createAsyncThunk('contacts/deleteContact', contact => {
+  deleteContactApi(contact);
 });
 
 export const filterContactsThunk = createAsyncThunk('contacts/filterContacts', query => {
@@ -23,18 +23,18 @@ const handleFulfilledContacts = (state, { payload }) => {
   state.contacts.isLoading = false;
 };
 
-const handleFulfilledSingleContact = (state, { payload }) => {
-  state.singleContact = payload;
-  state.isLoading = false;
+const handleFilter = (state, { payload }) => {
+  state.filter = payload;
 };
-// const handlePending = (state) => {
-// 	state.isLoading = true
-// 	state.error = ''
-// }
-// const handleRejected = (state, { error }) => {
-// 	state.error = error.message
-// 	state.isLoading = false
-// }
+
+const handlePending = (state) => {
+	state.contacts.isLoading = true
+	state.contacts.error = ''
+}
+const handleRejected = (state, { error }) => {
+	state.contacts.error = error.message
+	state.contacts.isLoading = false
+}
 
 const contactsSlice = createSlice({
   name: 'contacts',
@@ -49,10 +49,9 @@ const contactsSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(getContactsThunk.fulfilled, handleFulfilledContacts)
-      .addCase(getSingleContactsThunk.fulfilled, handleFulfilledSingleContact);
-    // .addMatcher(isAnyOf([getContactsThunk.pending,getSingleContactsThunk.pending])), handlePending)
-    // .addMatcher((action) => action.type.endsWith('contacts/pending'), handlePending)
-    // .addMatcher((action) => action.type.endsWith('rejected'), handleRejected)
+      .addCase(changeFilter, handleFilter)
+    .addMatcher((action) => action.type.endsWith('contacts/pending'), handlePending)
+    .addMatcher((action) => action.type.endsWith('rejected'), handleRejected)
   },
 });
 export const contactsReducer = contactsSlice.reducer;

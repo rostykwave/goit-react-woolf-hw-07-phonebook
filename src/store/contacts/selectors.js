@@ -1,21 +1,20 @@
-// import { createSelector } from '@reduxjs/toolkit';
-
 export const selectAllContacts = store => {
   return store.contacts.contacts.items
 };
-export const selectFilterValueContacts = store => store.filter;
 
-export const selectSortedContacts = store => {
-  return store.contacts.contacts?.items?.toSorted((a, b) => {
-    console.log('sorting...');
-    return a.price - b.price;
-  });
+export const selectFilterValueContacts = store => store.contacts.filter;
+
+export const selectVisibleContacts = store => {
+  const contacts = selectAllContacts(store);
+  const filter = selectFilterValueContacts(store);
+
+  if (filter && filter.length === 0) {
+    return contacts;
+  }
+
+  const normalizedFilter = filter.toLowerCase();
+
+  return contacts.filter(contact =>
+    contact.name.toLowerCase().includes(normalizedFilter)
+  );
 };
-
-// export const contactsSelector = createSelector(
-// 	selectFilterValueContacts,
-// 	selectSortedContacts,
-// 	(filterValue, sortedContacts) => {
-// 		return sortedContacts?.filter((el) => el.name.includes(filterValue))
-// 	}
-// )
