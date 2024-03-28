@@ -13,11 +13,6 @@ export const getAllContactsApi = async () => {
   return data;
 };
 
-export const getSearchContactsApi = async query => {
-  const { data } = await instanceContacts(`contacts/?name=${query}`);
-  return data;
-};
-
 export const getSingleContactApi = async id => {
   const { data } = await instanceContacts(`contacts/${id}`);
   return data;
