@@ -11,7 +11,7 @@ export const fetchContacts = createAsyncThunk('contacts/fetchAll', () =>
 );
 
 export const addContact = createAsyncThunk('contacts/addContact', contact => {
-  addContactApi(contact);
+  return addContactApi(contact);
 });
 
 export const deleteContact = createAsyncThunk(
@@ -23,6 +23,11 @@ export const deleteContact = createAsyncThunk(
 
 const handleFulfilledContacts = (state, { payload }) => {
   state.contacts.items = payload;
+  state.contacts.isLoading = false;
+};
+
+const handleAddContact = (state, { payload }) => {
+  state.contacts.items.push(payload);
   state.contacts.isLoading = false;
 };
 
@@ -52,6 +57,7 @@ const contactsSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(fetchContacts.fulfilled, handleFulfilledContacts)
+      .addCase(addContact.fulfilled, handleAddContact)
       .addCase(changeFilter, handleFilter)
       .addMatcher(
         action => action.type.endsWith('contacts/pending'),
