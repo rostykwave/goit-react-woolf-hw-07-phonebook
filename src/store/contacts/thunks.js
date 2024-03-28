@@ -17,7 +17,7 @@ export const addContact = createAsyncThunk('contacts/addContact', contact => {
 export const deleteContact = createAsyncThunk(
   'contacts/deleteContact',
   contact => {
-    deleteContactApi(contact);
+    return deleteContactApi(contact);
   }
 );
 
@@ -28,6 +28,11 @@ const handleFulfilledContacts = (state, { payload }) => {
 
 const handleAddContact = (state, { payload }) => {
   state.contacts.items.push(payload);
+  state.contacts.isLoading = false;
+};
+
+const handleDeleteContact = (state, { payload }) => {
+  state.contacts.items.filter(contact => contact.id !== payload.id);
   state.contacts.isLoading = false;
 };
 
@@ -58,6 +63,7 @@ const contactsSlice = createSlice({
     builder
       .addCase(fetchContacts.fulfilled, handleFulfilledContacts)
       .addCase(addContact.fulfilled, handleAddContact)
+      .addCase(deleteContact.fulfilled, handleDeleteContact)
       .addCase(changeFilter, handleFilter)
       .addMatcher(
         action => action.type.endsWith('contacts/pending'),
