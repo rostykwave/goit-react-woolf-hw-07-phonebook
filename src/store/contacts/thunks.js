@@ -32,7 +32,9 @@ const handleAddContact = (state, { payload }) => {
 };
 
 const handleDeleteContact = (state, { payload }) => {
-  state.contacts.items.filter(contact => contact.id !== payload.id);
+  state.contacts.items = state.contacts.items.filter(
+    contact => contact.id !== payload.id
+  );
   state.contacts.isLoading = false;
 };
 
